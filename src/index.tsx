@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AppWithReducers from './AppWithReducers';
 import AppWithRedux from './AppWithRedux';
-import { Provider } from 'react-redux';
 import { store } from './state/store';
+import { Provider } from 'react-redux';
 
 
 //ReactDOM.render(<App />, document.getElementById('root'))
