@@ -1,0 +1,8 @@
+.delete-task-icon {
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out;
+}
+
+.task-item:hover .delete-task-icon {
+    opacity: 1;
+}

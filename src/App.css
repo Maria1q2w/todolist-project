@@ -1,0 +1,26 @@
+.todolists-container {
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));  */
+    /* gap: 10px; */
+    /* align-items: flex-start;  */
+    /* grid-auto-flow: dense;  */
+    /* flex-wrap: wrap; */
+    /* justify-content: flex-start; */
+    box-sizing: border-box;
+}
+
+.todolist {
+    width: 255px; 
+    /* max-width: 400px; */
+    /* padding: 10px; */
+    /* margin: 10px; */
+    /* flex: 0 0 auto; */
+    /* align-self: flex-start; */
+}
+
+.App {
+    background-color: rgb(217, 239, 252);
+    min-height: 100vh;
+}
+
+

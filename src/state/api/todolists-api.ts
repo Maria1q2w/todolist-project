@@ -1,4 +1,4 @@
-import { UpdateTaskTitle } from './../../stories/todolists-api.stories';
+import { UpdateTaskTitle } from '../../stories/todolists-api.stories';
 import axios from "axios"
 
 const settings = {
@@ -70,9 +70,12 @@ export const todolistsAPI = {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
     },
     createTasks(todolistId: string, title: string) {
-        return instance.post<ResponseType<Array<TaskType>>>(`todo-lists/${todolistId}/tasks`, { title: title });
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, { title: title });
     },
     updateTaskTitle(todolistId: string, taskId: string, title: string) {
         return instance.put<ResponseType<Array<TaskType>>>(`todo-lists/${todolistId}/tasks/${taskId}`, { title: title });
-    }
+    },
+    changeTaskPlace(todolistId: string, taskId: string, putAfterItemId: string) {
+        return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}/reorder`, { putAfterItemId: putAfterItemId });
+    },
 }

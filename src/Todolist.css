@@ -1,0 +1,23 @@
+.button-group {
+    margin-top: 10px;
+}
+
+.task-container {
+    min-height: 0px;
+    /* max-width: 100%; */
+    /* overflow-wrap: break-word; */
+}
+
+.empty-task {
+    height: 42px; 
+    visibility: hidden; 
+}
+
+.delete-todolist-icon {
+    opacity: 0; 
+    transition: opacity 0.2s ease-in-out;
+}
+
+.todolist-title:hover .delete-todolist-icon {
+    opacity: 1;
+}

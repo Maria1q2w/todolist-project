@@ -14,13 +14,11 @@ const taskCallback = action("Button 'add' was pressed inside the task");
 export const TaskBaseExample = () => {
     return <>
         <Task
-            task={{ id: '1', title: 'CSS', isDone: true }}
-            todolistId={"todolistId1"}
+            task={{ id: '1', title: 'CSS', isDone: true, todoListId: "todolistId1" }}
         />
         <button onClick={taskCallback} />
         <Task
-            task={{ id: '2', title: 'CSS + HTML', isDone: false }}
-            todolistId={"todolistId2"}
+            task={{ id: '2', title: 'CSS + HTML', isDone: false, todoListId: "todolistId2" }}
         />
         <button onClick={taskCallback} />
     </>

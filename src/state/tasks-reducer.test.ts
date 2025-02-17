@@ -1,21 +1,21 @@
+import { TasksStateType } from '../AppWithRedux';
 import { tasksReducer, removeTaskAC, addTaskAC, changeTaskStatusAC, changeTaskTitleAC } from './tasks-reducer';
-import { TasksStateType } from "../App"
 import { addTodolistAC, removeTodolistAC } from './todolists-reducer';
 
-test("correct task should be deleted from correct array", () =>  {
+test("correct task should be deleted from correct array", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: true },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-77767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhg6fd-77767" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-777y67" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-777hhh67" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfuyd-77767" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgsbbbfd-77767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhgfd-77755ee67" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776i7" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77pp767" },
         ]
     }
 
@@ -31,21 +31,21 @@ test("correct task should be deleted from correct array", () =>  {
 test("correct task should be added to correct array", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: true },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-77767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhg6fd-77767" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-777y67" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-777hhh67" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfuyd-77767" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgsbbbfd-77767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhgfd-77755ee67" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776i7" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77pp767" },
         ]
     }
 
-    const action = addTaskAC("Russian language", "todolistId1");
+    const action = addTaskAC("Russian language", "todolistId1", "taskId");
 
     const endState = tasksReducer(startState, action);
 
@@ -60,17 +60,17 @@ test("correct task should be added to correct array", () => {
 test("status of specified task should be changed", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: false },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-77767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhg6fd-77767" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-777y67" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-777hhh67" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfuyd-77767" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgsbbbfd-77767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhgfd-77755ee67" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776i7" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77pp767" },
         ]
     }
 
@@ -85,17 +85,17 @@ test("status of specified task should be changed", () => {
 test("title of specified task should be changed", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: false },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-77767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhg6fd-77767" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-777y67" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-777hhh67" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfuyd-77767" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgsbbbfd-77767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhgfd-77755ee67" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776i7" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77pp767" },
         ]
     }
 
@@ -112,26 +112,26 @@ test("title of specified task should be changed", () => {
 test("new property with new array should be added when new todolist is added", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: false },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-77767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhg6fd-77767" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-777y67" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-777hhh67" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfuyd-77767" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgsbbbfd-77767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhgfd-77755ee67" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776i7" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77pp767" },
         ]
     }
 
-    const action = addTodolistAC("title no metter");
+    const action = addTodolistAC("title no metter", "bcusdydo-90976jh");
     const endState = tasksReducer(startState, action);
 
     const keys = Object.keys(endState);
     const newKey = keys.find(k => k != "todolistId1" && k != "todolistId2");
-    if(!newKey) {
+    if (!newKey) {
         throw Error("new key should be added")
     }
 
@@ -142,17 +142,17 @@ test("new property with new array should be added when new todolist is added", (
 test("property with tolodistId should be deleted", () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: true },
-            { id: "2", title: "JS", isDone: false },
-            { id: "3", title: "React", isDone: false },
-            { id: "4", title: "Redux", isDone: false },
-        ], 
+            { id: "1", title: "CSS", isDone: true, todoListId: "jhgfd-7332s7767" },
+            { id: "2", title: "JS", isDone: false, todoListId: "jhgfd-77767jhggf" },
+            { id: "3", title: "React", isDone: false, todoListId: "jhgfd-77767-jhh" },
+            { id: "4", title: "Redux", isDone: false, todoListId: "jhgfd-77767-errt6" },
+        ],
         "todolistId2": [
-            { id: "1", title: "book", isDone: true },
-            { id: "2", title: "milk", isDone: false },
-            { id: "3", title: "bread", isDone: false },
-            { id: "4", title: "eggs", isDone: false },
-            { id: "5", title: "bacon", isDone: true },
+            { id: "1", title: "book", isDone: true, todoListId: "jhgfd-77767eecc-8" },
+            { id: "2", title: "milk", isDone: false, todoListId: "jhgfd-7-7767" },
+            { id: "3", title: "bread", isDone: false, todoListId: "jhg55rr5r55fd-77767" },
+            { id: "4", title: "eggs", isDone: false, todoListId: "jhgfd-7776756556" },
+            { id: "5", title: "bacon", isDone: true, todoListId: "jhgfd-77767-098k" },
         ]
     }
 
@@ -160,7 +160,7 @@ test("property with tolodistId should be deleted", () => {
     const endState = tasksReducer(startState, action);
 
     const keys = Object.keys(endState);
-    
+
     expect(keys.length).toBe(1);
     expect(endState["tolodistId2"]).toBeUndefined();
 
