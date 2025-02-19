@@ -62,8 +62,8 @@ function AppWithRedux() {
         dispatch(action);
     }, [dispatch]);
 
-
     useEffect(() => {
+        todolistsAPI.authorize();
         const fetchTodolists = async () => {
             try {
                 const response = await todolistsAPI.getTodolists();

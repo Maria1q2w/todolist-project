@@ -1,4 +1,3 @@
-import { UpdateTaskTitle } from '../../stories/todolists-api.stories';
 import axios from "axios"
 
 const settings = {
@@ -46,6 +45,15 @@ type GetTasksResponse = {
     error: string | null
 }
 
+type AuthorizeResponse = {
+    resultCode: number,
+    messages: Array<number>,
+    data: {
+        userId: number
+    }
+}
+
+
 export const todolistsAPI = {
     getTodolists() {
         const promise = instance.get<Array<TodolistType>>("todo-lists");
@@ -78,4 +86,17 @@ export const todolistsAPI = {
     changeTaskPlace(todolistId: string, taskId: string, putAfterItemId: string) {
         return instance.put<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}/reorder`, { putAfterItemId: putAfterItemId });
     },
+    authorize() {
+        const email = "masha.denisova.1384@gmail.com";
+        const password = "School.2002";
+        return instance.post<AuthorizeResponse>('auth/login', {
+            email,
+            password,
+            rememberMe: true
+        }).then(res => {
+            console.log("Успешный вход:", res.data);
+        }).catch(err => {
+            console.error("Ошибка входа:", err);
+        });
+    }
 }
