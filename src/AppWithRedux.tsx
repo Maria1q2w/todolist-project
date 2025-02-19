@@ -63,7 +63,12 @@ function AppWithRedux() {
     }, [dispatch]);
 
     useEffect(() => {
-        todolistsAPI.authorize();
+        const token = localStorage.getItem("token");
+        if (!token) {
+            todolistsAPI.authorize();
+        } else {
+            console.log("Токен уже есть:", token);
+        }
         const fetchTodolists = async () => {
             try {
                 const response = await todolistsAPI.getTodolists();
