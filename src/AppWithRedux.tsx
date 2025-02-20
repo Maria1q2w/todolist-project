@@ -13,7 +13,7 @@ import { addTodolistAC, changeTodolistFilterAC, changeTodolistTitleAC, removeTod
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { AppRootState } from './state/store';
-import { todolistsAPI } from './state/api/todolists-api';
+import { todolistsAPI, setAuthToken } from './state/api/todolists-api';
 import { TaskTypeWithIsDone } from './state/tasks-reducer';
 import { CreateTodolists } from "./stories/todolists-api.stories";
 
