@@ -68,6 +68,7 @@ function AppWithRedux() {
             if (!token) {
                 await todolistsAPI.authorize();
                 token = localStorage.getItem("token");
+                setAuthToken(token);
             }
             if (token) {
                 try {

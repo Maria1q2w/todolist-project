@@ -5,8 +5,7 @@ const token = localStorage.getItem("token");
 const settings = {
     withCredentials: true,
     headers: {
-        "API-KEY": "8991b5d6-8bb8-4a7f-8b55-9a76b32fc425",
-        Authorization: token ? `Bearer ${token}` : "",
+        "API-KEY": "8991b5d6-8bb8-4a7f-8b55-9a76b32fc425"
     }
 }
 
@@ -56,6 +55,14 @@ type AuthorizeResponse = {
         token: string
     }
 }
+
+export const setAuthToken = (token: string | null) => {
+    if (token) {
+        instance.defaults.headers["Authorization"] = `Bearer ${token}`;
+    } else {
+        delete instance.defaults.headers["Authorization"];
+    }
+};
 
 
 export const todolistsAPI = {
