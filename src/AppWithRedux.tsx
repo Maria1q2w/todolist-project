@@ -63,21 +63,23 @@ function AppWithRedux() {
     }, [dispatch]);
 
     useEffect(() => {
-
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                if (!token) {
-                    await todolistsAPI.authorize();
+        const checkAuthAndFetch = async () => {
+            let token = localStorage.getItem("token");
+            if (!token) {
+                await todolistsAPI.authorize();
+                token = localStorage.getItem("token");
+            }
+            if (token) {
+                try {
+                    const response = await todolistsAPI.getTodolists();
+                    dispatch(setTodolistsAC(response.data));
+                } catch (error) {
+                    console.error("Ошибка при загрузке данных:", error);
                 }
-                const response = await todolistsAPI.getTodolists();
-                dispatch(setTodolistsAC(response.data));
-            } catch (error) {
-                console.error("Ошибка при загрузке данных:", error);
             }
         }
 
-        fetchData();
+        checkAuthAndFetch();
     }, [dispatch])
 
 
