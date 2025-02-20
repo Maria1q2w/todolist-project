@@ -94,7 +94,7 @@ export const todolistsAPI = {
             email,
             password,
             rememberMe: true
-        }).then(res => {
+        }, { withCredentials: true }).then(res => {
             console.log("Успешный вход:", res.data);
             if (res.data.data.token) {
                 localStorage.setItem("token", res.data.data.token);
