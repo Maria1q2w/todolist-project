@@ -49,7 +49,8 @@ type AuthorizeResponse = {
     resultCode: number,
     messages: Array<number>,
     data: {
-        userId: number
+        userId: number,
+        token: string
     }
 }
 
@@ -95,6 +96,9 @@ export const todolistsAPI = {
             rememberMe: true
         }).then(res => {
             console.log("Успешный вход:", res.data);
+            if (res.data.data.token) {
+                localStorage.setItem("token", res.data.data.token);
+            }
         }).catch(err => {
             console.error("Ошибка входа:", err);
         });
