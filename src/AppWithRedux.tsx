@@ -63,21 +63,21 @@ function AppWithRedux() {
     }, [dispatch]);
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            todolistsAPI.authorize();
-        } else {
-            console.log("Токен уже есть:", token);
-        }
-        const fetchTodolists = async () => {
+
+        const fetchData = async () => {
             try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    await todolistsAPI.authorize();
+                }
                 const response = await todolistsAPI.getTodolists();
                 dispatch(setTodolistsAC(response.data));
             } catch (error) {
-                console.error("error", error);
+                console.error("Ошибка при загрузке данных:", error);
             }
         }
-        fetchTodolists();
+
+        fetchData();
     }, [dispatch])
 
 
