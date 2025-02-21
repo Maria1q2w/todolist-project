@@ -64,12 +64,10 @@ function AppWithRedux() {
 
     useEffect(() => {
         const checkAuthAndFetch = async () => {
+            await todolistsAPI.authorize();
             let token = localStorage.getItem("token");
-            if (!token) {
-                await todolistsAPI.authorize();
-                token = localStorage.getItem("token");
-                setAuthToken(token);
-            }
+            setAuthToken(token);
+
             if (token) {
                 try {
                     const response = await todolistsAPI.getTodolists();
