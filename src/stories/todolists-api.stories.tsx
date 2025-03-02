@@ -1,8 +1,10 @@
-import { IconButton, TextField } from '@mui/material';
+import { FormHelperText, IconButton, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { ChangeEvent, useCallback, useEffect, useState, KeyboardEvent } from 'react';
 import { todolistsAPI } from '../state/api/todolists-api';
 import { ControlPoint } from '@mui/icons-material';
+import { TodolistApiType, TodolistType } from '../AppWithRedux';
+import { TaskTypeWithIsDone } from '../state/tasks-reducer';
 
 export default {
     title: "API"
@@ -14,6 +16,7 @@ type DeleteTodolistProps = {
     removeTodolist: (todolistId: string) => void
 }
 type CreateTodolistProps = {
+    todolists?: Array<TodolistType>,
     asString: boolean,
     addTodolist: (title: string, id: string) => void
 }
@@ -35,6 +38,7 @@ type DeleteTaskProps = {
 }
 type CreateTaskProps = {
     todolistId: string,
+    tasksForTodolist: Array<TaskTypeWithIsDone>,
     asString: boolean,
     addTask: (title: string, todolistId: string, taskId: string) => void
 }
@@ -61,11 +65,10 @@ export const GetTodolists = () => {
     return isLoading ? <p>Loading...</p> : state;
 }
 
-export const CreateTodolists: React.FC<CreateTodolistProps> = ({ asString = true, addTodolist }) => {
+export const CreateTodolists: React.FC<CreateTodolistProps> = ({ asString = true, addTodolist, todolists }) => {
     const [state, setState] = useState<any>(null);
-    const [titleName, setTitleName] = useState<any>("");
+    const [titleName, setTitleName] = useState<string>("");
     let [error, setError] = useState<string | null>(null);
-
 
     const onNewTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitleName(e.currentTarget.value)
@@ -105,11 +108,18 @@ export const CreateTodolists: React.FC<CreateTodolistProps> = ({ asString = true
         (<div>
             <TextField style={{ backgroundColor: "white", borderRadius: "5px" }} variant={"outlined"} label={"Type value"} error={!!error} value={titleName} onChange={onNewTitleChangeHandler}
                 onKeyDown={onKeyDownHandler}
-                helperText={error}
+                disabled={(todolists?.length ?? 0) >= 10}
+                inputProps={{ maxLength: 20 }}
             />
-            <IconButton onClick={createTodolist} color={"primary"} >
+            <IconButton onClick={createTodolist} color={"primary"} disabled={(todolists?.length ?? 0) >= 10} >
                 <ControlPoint />
             </IconButton>
+            {error && (
+                <FormHelperText sx={{ color: "red", display: "flex", justifyContent: "center", paddingRight: "40px" }}>
+                    {error}
+                </FormHelperText>
+            )}
+            {(todolists?.length ?? 0) >= 10 ? <div style={{ color: "red", display: "flex", justifyContent: "center", paddingRight: "40px", paddingTop: "10px" }}>Max 10 todolists</div> : <></>}
         </div>))
 }
 
@@ -179,7 +189,7 @@ export const UpdateTodolistTitle: React.FC<UpdateTodolistTitleProps> = ({ asStri
             <button onClick={updateTodolistTitle}>Update Title Todolist</button>
         </div>
     </div>) : (
-            editMode ? <TextField variant="standard" value={newTitle} onChange={onChangeTitleHandler} onBlur={updateTodolistTitle} autoFocus />
+            editMode ? <TextField variant="standard" value={newTitle} onChange={onChangeTitleHandler} onBlur={updateTodolistTitle} autoFocus inputProps={{ maxLength: 20 }} />
                 : <span onDoubleClick={activeEditMode} >{newTitle}</span>
         ))
 }
@@ -239,7 +249,7 @@ export const DeleteTask: React.FC<DeleteTaskProps> = ({ asString = true, todolis
         ))
 }
 
-export const CreateTasks: React.FC<CreateTaskProps> = ({ asString = true, todolistId, addTask }) => {
+export const CreateTasks: React.FC<CreateTaskProps> = ({ asString = true, todolistId, addTask, tasksForTodolist }) => {
     const [state, setState] = useState<any>(null);
     const [todolistIdForTask, setTodolistIdForTask] = useState<string>(todolistId);
     const [titleForTask, setTitleForTask] = useState<string>("");
@@ -289,13 +299,14 @@ export const CreateTasks: React.FC<CreateTaskProps> = ({ asString = true, todoli
             </div>
         </div>) : (
             <div>
-                <TextField variant={"outlined"} label={"Type value"} error={!!error} value={titleForTask} onChange={onNewTitleChangeHandler}
+                <TextField disabled={tasksForTodolist.length >= 10} inputProps={{ maxLength: 30 }} variant={"outlined"} label={"Type value"} error={!!error} value={titleForTask} onChange={onNewTitleChangeHandler}
                     onKeyDown={onKeyDownHandler}
                     helperText={error}
                 />
-                <IconButton onClick={createTasks} color={"primary"} >
+                <IconButton onClick={createTasks} color={"primary"} disabled={tasksForTodolist.length >= 10} >
                     <ControlPoint />
                 </IconButton>
+                {(tasksForTodolist.length >= 10) && <div style={{ color: "red", textAlign: "center", marginTop: "10px" }} >Max 10 tasks in todolist</div>}
             </div>
         ))
 }

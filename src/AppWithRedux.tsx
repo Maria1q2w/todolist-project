@@ -108,6 +108,8 @@ function AppWithRedux() {
     todolists.forEach((tl, index) => {
         columns[index % columnsCount].push(tl);
     });
+    console.log(todolists, "todolists");
+
 
     return (
         <div className="App">
@@ -132,49 +134,50 @@ function AppWithRedux() {
 
                 <Container fixed>
                     <Grid container style={{ padding: "20px" }}>
-                        <CreateTodolists addTodolist={addTodolist} asString={false} />
+                        <CreateTodolists todolists={todolists} addTodolist={addTodolist} asString={false} />
                     </Grid>
 
                     <Grid container spacing={0} style={{
                         display: "flex", flexWrap: "wrap",
                         justifyContent: "center"
                     }}>
-                        {columns.map((column, index) => (
-                            <Grid
-                                item
-                                key={index}
-                                style={{
-                                    flex: `0 0 ${COLUMN_WIDTH}px`,
-                                    minWidth: `${COLUMN_WIDTH}px`,
-                                    maxWidth: "100%",
-                                    padding: "10px",
-                                }}
-                            >
+                        {todolists.length === 0 ? (
+                            <Box sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '50vh'
+                            }}>
+                                <CircularProgress />
+                            </Box>
+                        ) : (
+                                columns.map((column, index) => (
+                                    <Grid
+                                        item
+                                        key={index}
+                                        style={{
+                                            flex: `0 0 ${COLUMN_WIDTH}px`,
+                                            minWidth: `${COLUMN_WIDTH}px`,
+                                            maxWidth: "100%",
+                                            padding: "10px",
+                                        }}
+                                    >
+                                        {column.map((tl) => (<Grid className="todolist" item key={tl.id}>
+                                            <Paper className="todolists-container" style={{ padding: "10px", marginBottom: "20px" }}>
+                                                <Todolist key={tl.id}
+                                                    title={tl.title}
+                                                    changeFilter={changeFilter}
+                                                    filter={tl.filter}
+                                                    id={tl.id}
+                                                    removeTodolist={removeTodolist}
+                                                    changeTodolistTitle={changeTodolistTitle} />
+                                            </Paper>
+                                        </Grid>
 
-                                {todolists.length === 0 ? (
-                                    <div>
-                                        <Box sx={{ display: 'flex' }}>
-                                            <CircularProgress />
-                                        </Box>
-                                    </div>) :
-                                    (
-                                        column.map((tl) => {
-                                            return (<Grid className="todolist" item key={tl.id}>
-                                                <Paper className="todolists-container" style={{ padding: "10px", marginBottom: "20px" }}>
-                                                    <Todolist key={tl.id}
-                                                        title={tl.title}
-                                                        changeFilter={changeFilter}
-                                                        filter={tl.filter}
-                                                        id={tl.id}
-                                                        removeTodolist={removeTodolist}
-                                                        changeTodolistTitle={changeTodolistTitle} />
-                                                </Paper>
-                                            </Grid>
-                                            )
-                                        }))
-                                }
-                            </Grid>
-                        ))}
+                                        ))}
+                                    </Grid>
+                                ))
+                            )}
                     </Grid>
                 </Container>
             </Box >
